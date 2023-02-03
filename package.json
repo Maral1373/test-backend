@@ -1,12 +1,11 @@
 {
-  "name": "fullstack-shopping-cart",
+  "name": "test-backend",
   "version": "1.0.0",
-  "description": "Mobile phones shopping cart",
+  "description": "Test Backend",
   "main": "index.js",
-  "author": "Ivan Jakimovski",
   "license": "ISC",
   "engines": {
-    "node": "8.10.0"
+    "node": ">=14"
   },
   "scripts": {
     "start:dev": "nodemon index.js",
@@ -15,7 +14,7 @@
     "install:client": "npm install --prefix client",
     "build": "npm run build --prefix client",
     "start": "node index.js",
-    "heroku-postbuild": "npm run install:client && npm run build"
+    "postbuild": "npm run install:client && npm run build"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
