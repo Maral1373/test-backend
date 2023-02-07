@@ -1,28 +1,22 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const User = require('../models/User');
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const User = require("../models/User");
 
 const router = express.Router();
 
 const generateToken = (data) => {
   return jwt.sign(data, process.env.PRIVATE_KEY);
-}
+};
 
-router.post('/register', async ({ body }, res) => {
-  const {
-    username,
-    password,
-    email,
-    address,
-    phone,
-  } = body;
+router.post("/register", async ({ body }, res) => {
+  const { username, password, email, address, phone } = body;
 
   try {
     const user = await User.findOne({ username }).exec();
 
     if (user) {
-      return res.status(409).send({ message: 'User already exists' });
+      return res.status(409).send({ message: "User already exists" });
     }
 
     const newUserData = {
@@ -30,7 +24,7 @@ router.post('/register', async ({ body }, res) => {
       email,
       address,
       phone,
-      orders: []
+      orders: [],
     };
 
     const salt = await bcrypt.genSalt();
@@ -48,20 +42,23 @@ router.post('/register', async ({ body }, res) => {
   }
 });
 
-router.post('/login', async ({ body }, res) => {
-  const { username, password } = body;
+router.post("/login", async ({ body }, res) => {
+  const { email, password } = body;
 
   try {
-    const existingUser = await User.findOne({ username }).exec();
+    const existingUser = await User.findOne({ email }).exec();
 
     if (!existingUser) {
-      return res.status(401).send({ message: 'No user found' });
+      return res.status(401).send({ message: "No user found" });
     }
 
-    const correctPassword = await bcrypt.compare(password, existingUser.password);
+    const correctPassword = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
 
     if (!correctPassword) {
-      return res.status(401).send({ message: 'Invalid credentials' });
+      return res.status(401).send({ message: "Invalid credentials" });
     }
 
     return res.status(200).send({ ...existingUser.toJSON() });
