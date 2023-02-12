@@ -10,9 +10,14 @@ const generateToken = (data) => {
 };
 
 router.post("/register", async ({ body }, res) => {
-  const { username, password, email, address, phone } = body;
+  const { username, password, email, address, phone, firstName, lastName } =
+    body;
 
   try {
+    if (!username) {
+      return res.status(400).send({ message: "username required" });
+    }
+
     const user = await User.findOne({ username }).exec();
 
     if (user) {
@@ -24,6 +29,8 @@ router.post("/register", async ({ body }, res) => {
       email,
       address,
       phone,
+      firstName,
+      lastName,
       orders: [],
     };
 

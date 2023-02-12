@@ -66,5 +66,4 @@ app.get("/seed", (req, res) => {
   seed();
   res.send("success");
 });
-
 app.listen(port, () => console.log(`SERVER NOW RUNNING ON PORT ${port}...`));
