@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   username: String,
@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema({
   phone: String,
   orders: [],
   token: String,
+  firstName: String,
+  lastName: String,
 });
 
 userSchema.options.toJSON = {
@@ -16,7 +18,7 @@ userSchema.options.toJSON = {
     delete ret._id;
     delete ret.__v;
     return ret;
-  }
+  },
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
