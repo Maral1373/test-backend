@@ -18,7 +18,7 @@ const products = [
       batery: "Non-removable Li-Ion 2691 mAh battery (10.28 Wh)",
       color: "White",
       price: 700,
-      photo: "/img/apple_iphone_8_plus.jpg",
+      photo: "/img/apple_iphone_8_plus.png",
     },
     tags: {
       priceRange: "500-750",
@@ -49,7 +49,7 @@ const products = [
       batery: "Non-removable Li-Ion 2716 mAh battery (10.35 Wh)",
       color: "Black",
       price: 950,
-      photo: "/img/apple_iphone_x.jpg",
+      photo: "/img/apple_iphone_x.png",
     },
     tags: {
       priceRange: "750>",
@@ -80,7 +80,7 @@ const products = [
       batery: "Non-removable Li-Ion 3000 mAh battery",
       color: "Ice White",
       price: 450,
-      photo: "/img/htc_u11.jpg",
+      photo: "/img/htc_u11.png",
     },
     tags: {
       priceRange: "250-500",
@@ -111,7 +111,7 @@ const products = [
       batery: "Non-removable Li-Po 4000 mAh battery",
       color: "Titanium Gray",
       price: 800,
-      photo: "/img/huawei_mate_10_pro.jpg",
+      photo: "/img/huawei_mate_10_pro.png",
     },
     tags: {
       priceRange: "750>",
@@ -142,7 +142,7 @@ const products = [
       batery: "Non-removable Li-Ion 3200 mAh battery",
       color: "Mystic Silver",
       price: 680,
-      photo: "/img/huawei_p10.jpg",
+      photo: "/img/huawei_p10.png",
     },
     tags: {
       priceRange: "500-750",
@@ -174,7 +174,7 @@ const products = [
       batery: "Non-removable Li-Po 3300 mAh battery",
       color: "Ice Platinum",
       price: 800,
-      photo: "/img/lg_g6.jpg",
+      photo: "/img/lg_g6.png",
     },
     tags: {
       priceRange: "750>",
@@ -206,7 +206,7 @@ const products = [
       batery: "Non-removable Li-Po 3300 mAh battery",
       color: "Aurora Black",
       price: 800,
-      photo: "/img/lg_v30.jpg",
+      photo: "/img/lg_v30.png",
     },
     tags: {
       priceRange: "750>",
@@ -237,7 +237,7 @@ const products = [
       batery: "Non-removable Li-Ion 1900 mAh battery",
       color: "Silver",
       price: 150,
-      photo: "/img/samsung_galaxy_a3.JPG",
+      photo: "/img/samsung_galaxy_a3.png",
     },
     tags: {
       priceRange: "<250",
@@ -269,7 +269,7 @@ const products = [
       batery: "Non-removable Li-Ion 3300 mAh battery",
       color: "Midnight Black",
       price: 800,
-      photo: "/img/samsung_galaxy_note_8.jpg",
+      photo: "/img/samsung_galaxy_note_8.png",
     },
     tags: {
       priceRange: "750>",
@@ -301,7 +301,7 @@ const products = [
       batery: "Non-removable Li-Ion 3000 mAh battery",
       color: "Midnight Black",
       price: 720,
-      photo: "/img/samsung_galaxy_s8.jpg",
+      photo: "/img/samsung_galaxy_s8.png",
     },
     tags: {
       priceRange: "500-750",
