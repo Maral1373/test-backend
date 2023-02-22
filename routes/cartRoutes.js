@@ -65,8 +65,8 @@ router.put('/', checkToken, jsonParser, (req, res) => {
 
 router.delete('/', checkToken, (req, res) => {
   Cart.findByIdAndRemove(req.query.id)
-    .then(() => res.end())
-    .catch((err) => res.send(err));
+    .then(() => res.send({ status: true }))
+    .catch((err) => res.send({ status: false, error: err }));
 });
 
 module.exports = router;
