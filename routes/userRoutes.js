@@ -1,32 +1,30 @@
-const express = require('express');
-const _ = require('lodash');
-const User = require('../models/User');
-const { checkToken } = require('../middleware/checkToken');
+const express = require("express");
+const _ = require("lodash");
+const User = require("../models/User");
+const { checkToken } = require("../middleware/checkToken");
 
 const router = express.Router();
 
-router.get('/', checkToken, (req, res) => {
+router.get("/", checkToken, (req, res) => {
   res.status(200).send(req.user);
 });
 
-router.put('/', checkToken, async ({ body, user }, res) => {
-  const {
-    email,
-    address,
-    phone,
-  } = body;
+router.put("/", checkToken, async ({ body, user }, res) => {
+  const { email, address, phone, firstName, lastName } = body;
 
   try {
     const foundUser = await User.findById(user.id).exec();
 
     await foundUser.replaceOne({
-      ..._.omit(foundUser.toJSON(), ['id']),
+      ..._.omit(foundUser.toJSON(), ["id"]),
       email: email || foundUser.email,
       address: address || foundUser.address,
       phone: phone || foundUser.phone,
+      firstName: firstName || foundUser.firstName,
+      lastName: lastName || foundUser.lastName,
     });
 
-    return res.status(200).send({ message: 'User updated' });
+    return res.status(200).send({ message: "User updated" });
   } catch (err) {
     return res.status(500).send({ message: err });
   }
