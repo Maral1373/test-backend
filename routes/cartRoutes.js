@@ -62,14 +62,14 @@ router.put("/", checkToken, jsonParser, (req, res) => {
     foundCart.items = foundCart.items.filter(
       (item) => item._id != req.body.itemId
     );
-    foundCart.save(() => res.end());
+    foundCart.save((r) => res.status(200).send(r));
   });
 });
 
 router.delete("/", checkToken, (req, res) => {
   Cart.findByIdAndRemove(req.query.id)
-    .then(() => res.end())
-    .catch((err) => res.send(err));
+    .then((r) => res.status(200).send(r))
+    .catch((err) => res.status(404).send(err));
 });
 
 module.exports = router;

@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/", checkToken, (req, res) => {
   User.findById(req.user.id).then((foundUser) => {
     foundUser.orders = foundUser.orders.concat(req.body.order);
-    foundUser.save(res.send);
+    foundUser.save((r) => res.status(200).send(r));
   });
 });
 
