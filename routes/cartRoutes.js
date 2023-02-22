@@ -29,16 +29,20 @@ router.post("/", checkToken, (req, res) => {
           }
         )
           .exec()
-          .then(res.send);
+          .then(() => res.end());
       } else {
         foundCart.items.push(item);
-        foundCart.save().then(res.send);
+        console.log("foundCart", foundCart);
+        foundCart.save().then(() => res.end());
       }
     } else {
       Cart.create({
         user: user,
         items: [item],
-      }).then(res.send);
+      }).then((results) => {
+        console.log("results", results);
+        res.end();
+      });
     }
   });
 });
@@ -48,10 +52,10 @@ router.get("/", checkToken, (req, res) => {
     .populate("items.product")
     .exec((err, cart) => {
       if (!cart) {
-        return res.status(404).send(null);
+        return res.send(null);
       }
 
-      res.status(200).send(cart);
+      res.send(cart);
     });
 });
 
@@ -60,14 +64,14 @@ router.put("/", checkToken, jsonParser, (req, res) => {
     foundCart.items = foundCart.items.filter(
       (item) => item._id != req.body.itemId
     );
-    foundCart.save(res.send);
+    foundCart.save(() => res.end());
   });
 });
 
 router.delete("/", checkToken, (req, res) => {
   Cart.findByIdAndRemove(req.query.id)
-    .then((result) => res.status(200).send({ result, queryId: req.query.id }))
-    .catch((error) => res.status(400).send({ error, queryId: req.query.id }));
+    .then(() => res.end())
+    .catch((err) => res.send(err));
 });
 
 module.exports = router;
