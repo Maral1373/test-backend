@@ -32,7 +32,6 @@ router.post("/", checkToken, (req, res) => {
           .then(() => res.end());
       } else {
         foundCart.items.push(item);
-        console.log("foundCart", foundCart);
         foundCart.save().then(() => res.end());
       }
     } else {
@@ -40,7 +39,6 @@ router.post("/", checkToken, (req, res) => {
         user: user,
         items: [item],
       }).then((results) => {
-        console.log("results", results);
         res.end();
       });
     }
