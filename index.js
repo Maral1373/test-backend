@@ -10,6 +10,7 @@ const catalogRoutes = require("./routes/catalogRoutes");
 const userRoutes = require("./routes/userRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const favRoutes = require("./routes/favRoutes");
 
 const seed = require("./seeds/products");
 
@@ -62,6 +63,7 @@ app.use("/api/catalog", catalogRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/order", orderRoutes);
+app.use("/api/favorites", favRoutes);
 app.get("/seed", (req, res) => {
   seed();
   res.send("success");
