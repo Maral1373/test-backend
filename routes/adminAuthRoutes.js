@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const User = require("../models/User");
+const Admin = require("../models/Admin");
 
 const router = express.Router();
 
@@ -10,41 +10,37 @@ const generateToken = (data) => {
 };
 
 router.post("/register", async ({ body }, res) => {
-  const { username, password, email, address, phone, firstName, lastName } =
-    body;
+  const { username, password, email, key } = body;
 
   try {
+    if (key !== process.env.PRIVATE_KEY) {
+      return res.status(400).send({ message: "Private key required" });
+    }
     if (!username) {
       return res.status(400).send({ message: "username required" });
     }
 
-    const user = await User.findOne({ username }).exec();
+    const user = await Admin.findOne({ username }).exec();
 
     if (user) {
-      return res.status(409).send({ message: "User already exists" });
+      return res.status(409).send({ message: "Admin already exists" });
     }
 
-    const newUserData = {
+    const newAdminData = {
       username,
       email,
-      address,
-      phone,
-      firstName,
-      lastName,
-      orders: [],
-      favorites: [],
     };
 
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(password, salt);
 
-    newUserData.password = hash;
-    newUserData.token = generateToken(username);
+    newAdminData.password = hash;
+    newAdminData.token = generateToken(username);
 
-    const newUser = new User(newUserData);
-    const createdUser = await newUser.save();
+    const newAdmin = new Admin(newAdminData);
+    const createdAdmin = await newAdmin.save();
 
-    res.status(201).send({ ...createdUser.toJSON() });
+    res.status(201).send({ ...createdAdmin.toJSON() });
   } catch (err) {
     res.status(500).send({ message: err });
   }
@@ -54,22 +50,22 @@ router.post("/login", async ({ body }, res) => {
   const { email, password } = body;
 
   try {
-    const existingUser = await User.findOne({ email }).exec();
+    const existingAdmin = await Admin.findOne({ email }).exec();
 
-    if (!existingUser) {
+    if (!existingAdmin) {
       return res.status(401).send({ message: "No user found" });
     }
 
     const correctPassword = await bcrypt.compare(
       password,
-      existingUser.password
+      existingAdmin.password
     );
 
     if (!correctPassword) {
       return res.status(401).send({ message: "Invalid credentials" });
     }
 
-    return res.status(200).send({ ...existingUser.toJSON() });
+    return res.status(200).send({ ...existingAdmin.toJSON() });
   } catch (err) {
     res.status(500).send({ message: err });
   }

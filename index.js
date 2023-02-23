@@ -6,9 +6,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
+const adminAuthRoutes = require("./routes/adminAuthRoutes");
 const catalogRoutes = require("./routes/catalogRoutes");
 const userRoutes = require("./routes/userRoutes");
 const cartRoutes = require("./routes/cartRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const favRoutes = require("./routes/favRoutes");
 
@@ -59,8 +61,10 @@ app.use(
 app.use(express.static(publicPath));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/admin/auth", adminAuthRoutes);
 app.use("/api/catalog", catalogRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/favorites", favRoutes);
