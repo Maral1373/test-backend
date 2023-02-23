@@ -17,7 +17,6 @@ router.post("/", checkToken, (req, res) => {
 
 router.delete("/", checkToken, (req, res) => {
   User.findById(req.user.id).then((foundUser) => {
-    console.log("req.query.id", req.query.id);
     foundUser.favorites = foundUser.favorites.filter(
       (fav) => fav !== req.query.id
     );

@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
-const adminAuthRoutes = require("./routes/adminAuthRoutes");
 const catalogRoutes = require("./routes/catalogRoutes");
 const userRoutes = require("./routes/userRoutes");
 const cartRoutes = require("./routes/cartRoutes");
@@ -61,7 +60,6 @@ app.use(
 app.use(express.static(publicPath));
 
 app.use("/api/auth", authRoutes);
-app.use("/api/admin/auth", adminAuthRoutes);
 app.use("/api/catalog", catalogRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes);
