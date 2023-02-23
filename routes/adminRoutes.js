@@ -1,6 +1,7 @@
 const express = require("express");
 const _ = require("lodash");
 const Admin = require("../models/Admin");
+const User = require("../models/User");
 const { checkTokenAdmin } = require("../middleware/checkTokenAdmin");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -76,6 +77,7 @@ router.post("/auth/register", async ({ body }, res) => {
 
 router.post("/auth/login", async ({ body }, res) => {
   const { email, password } = body;
+  console.log(body);
 
   try {
     const existingAdmin = await Admin.findOne({ email }).exec();
@@ -95,8 +97,33 @@ router.post("/auth/login", async ({ body }, res) => {
 
     return res.status(200).send({ ...existingAdmin.toJSON() });
   } catch (err) {
+    console.log("error", err);
     res.status(500).send({ message: err });
   }
+});
+
+router.get("/orders", checkTokenAdmin, (req, res) => {
+  let orders = [];
+  User.find({})
+    .then((users) => {
+      users.forEach((user) => {
+        const { _id, email, firstName, lastName, address, phone } = user;
+        orders = orders.concat(
+          user.orders.map((order) => ({
+            ...order,
+            user: {
+              _id,
+              email,
+              firstName,
+              lastName,
+              address,
+              phone,
+            },
+          }))
+        );
+      });
+    })
+    .then(() => res.status(200).send(orders));
 });
 
 module.exports = router;
