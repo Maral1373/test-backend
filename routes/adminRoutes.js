@@ -2,6 +2,7 @@ const express = require("express");
 const _ = require("lodash");
 const Admin = require("../models/Admin");
 const User = require("../models/User");
+const Product = require("../models/Product");
 const { checkTokenAdmin } = require("../middleware/checkTokenAdmin");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -124,6 +125,22 @@ router.get("/orders", checkTokenAdmin, (req, res) => {
       });
     })
     .then(() => res.status(200).send(orders));
+});
+
+router.get("/users", checkTokenAdmin, (req, res) => {
+  User.find({})
+    .then((users) =>
+      users.map((user) => _.omit(user.toJSON(), ["token", "password"]))
+    )
+    .then((results) => res.status(200).send(results));
+});
+
+router.post("/products", checkTokenAdmin, (req, res) => {
+  console.log(req.body);
+  Product.create(req.body).then((results) => {
+    console.log(results);
+    res.send(results);
+  });
 });
 
 module.exports = router;

@@ -39,7 +39,7 @@ router.post("/", checkToken, (req, res) => {
         user: user,
         items: [item],
       }).then((results) => {
-        res.end();
+        res.send(results);
       });
     }
   });
